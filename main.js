@@ -1,24 +1,40 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+import { header } from "./src/componentes/header"
+import { panel } from "./src/vistas/panel"
+import { registre } from "./src/vistas/registre"
+import { login } from "./src/vistas/login"
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+document.querySelector('header').innerHTML = header.template
+document.querySelector('main').innerHTML = panel.template
 
-setupCounter(document.querySelector('#counter'))
+const botonRegistre = document.querySelector('#botonRegistre')
+botonRegistre.addEventListener('click', CargarRegistre)
+
+function CargarRegistre(){
+  event.preventDefault();
+  document.querySelector('main').innerHTML = registre.template
+}
+
+const botonLogin = document.querySelector('#botonLogin')
+botonLogin.addEventListener('click', CargarLogin)
+
+function CargarLogin(){
+  event.preventDefault();
+  document.querySelector('main').innerHTML = login.template
+}
+
+const botonPanel = document.querySelector('#botonPanel')
+botonPanel.addEventListener('click', CargarPanel)
+
+function CargarPanel(){
+  event.preventDefault();
+  document.querySelector('main').innerHTML = panel.template
+}
+
+const botonComentario = document.querySelector('.botonComentario')
+botonComentario.addEventListener('click', CargarComentario)
+
+function CargarComentario(){
+  event.preventDefault();
+  document.querySelector('main').innerHTML = comentarios.template
+}
+
