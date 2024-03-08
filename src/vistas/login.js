@@ -1,35 +1,6 @@
-export const login =  {
-    template: //html
-    `
-<!DOCTYPE html>
-<html lang="es">
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-        <!-- Bootstrap CSS -->
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-            crossorigin="anonymous"
-        />
-
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/yeti/bootstrap.min.css"
-        />
-
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
-        />
-        <link rel="stylesheet" href="styles.css" />
-
-        <link rel="stylesheet" href="styles.css" />
-        <title>Login</title>
-    </head>
+export const login = {
+  //html
+  template: `
     <body class="pt-5" style="overflow-x: hidden; padding-bottom: 100px">
         <main>
             <div class="container">
@@ -88,5 +59,38 @@ export const login =  {
         ></script>
     </body>
 </html>
- `
-}
+ `,
+ script: () => {
+    document.addEventListener("DOMContentLoaded", function () {
+      // Obtener referencias a los elementos del formulario y al mensaje de error
+      var formularioLogin = document.getElementById("formularioLogin");
+      var inputUsername = document.getElementById("username");
+      var inputPassword = document.getElementById("password");
+      var mensajeError = document.getElementById("mensajeError");
+  
+      // Agregar un evento de escucha al formulario para el envío
+      formularioLogin.addEventListener("submit", function (event) {
+        // Evitar que se envíe el formulario por defecto
+        event.preventDefault();
+  
+        // Obtener los valores del nombre de usuario y la contraseña
+        var username = inputUsername.value;
+        var password = inputPassword.value;
+  
+        // Validar si el nombre de usuario y la contraseña son correctos
+        var usuarioEncontrado = usuarios.find(user => user.email === username && user.contraseña === password);
+  
+        if (usuarioEncontrado) {
+          // Iniciar sesión con éxito, puedes redirigir o realizar otras acciones
+          console.log("Inicio de sesión exitoso");
+          mensajeError.textContent = ""; // Limpiar cualquier mensaje de error existente
+          // Simulamos redirección después del inicio de sesión (puedes ajustar esto)
+          window.location.href = '/panel'; 
+        } else {
+          // Mostrar un mensaje de error
+          mensajeError.textContent = "Nombre de usuario o contraseña incorrectos";
+        }
+      });
+    });
+  },
+};

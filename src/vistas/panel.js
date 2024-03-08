@@ -1,3 +1,5 @@
+import { tickets } from "../bd/tickets"
+
 export const panel =  {
     template: //html
     ` 
@@ -40,10 +42,10 @@ export const panel =  {
               <td>Error de impresora</td>
               <td>Ana Martínez</td>
               <td><button class="btn btn-success" title="Resolver ticket">Resolver</button></td>
-              <td><button class="btn btn-warning botonComentario" title="Añadir comentario" ><i class="bi  bi-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+              <td><button class="btn btn-warning" title="Añadir comentario" ><i class="bi  bi-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
               </button>
               </td>
-              <td><button class="btn btn-info" title="Ver comentarios"><i class="bi bi-chat-left-text"></i>
+              <td><button class="btn btn-info botonComentario"  title="Ver comentarios"><i class="bi bi-chat-left-text"></i>
               </button></td>
               <td><button class="btn btn-danger" title="Eliminar ticket"><i class="bi bi-trash3"></i>
               </i>
@@ -62,7 +64,7 @@ export const panel =  {
               <td><button class="btn btn-warning" title="Añadir comentario"><i class="bi  bi-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
               </button>
               </td>
-              <td><button class="btn btn-info" title="Ver comentarios"><i class="bi bi-chat-left-text"></i>
+              <td><button class="btn btn-info botonComentario" title="Ver comentarios"><i class="bi bi-chat-left-text"></i>
               </button></td>
               <td><button class="btn btn-danger" title="Eliminar ticket"><i class="bi bi-trash3"></i>
               </i>
@@ -81,7 +83,7 @@ export const panel =  {
               <td><button class="btn btn-warning" title="Añadir comentario"><i class="bi  bi-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
               </button>
               </td>
-              <td><button class="btn btn-info" title="Ver comentarios"><i class="bi bi-chat-left-text"></i>
+              <td><button class="btn btn-info botonComentario" title="Ver comentarios"><i class="bi bi-chat-left-text"></i>
               </button></td>
               <td><button class="btn btn-danger" title="Eliminar ticket"><i class="bi bi-trash3"></i>
               </i>
@@ -96,11 +98,11 @@ export const panel =  {
               <td>PC2</td>
               <td>Problema de conexión a la red</td>
               <td>Luis Torres</td>
-              <td><button class="btn btn-success" title="Resolver ticket">Resolver</button></td>
+              <td><button class="btn btn-success " title="Resolver ticket">Resolver</button></td>
               <td><button class="btn btn-warning" title="Añadir comentario"><i class="bi  bi-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
               </button>
               </td>
-              <td><button class="btn btn-info" title="Ver comentarios"><i class="bi bi-chat-left-text"></i>
+              <td><button class="btn btn-info botonComentario" title="Ver comentarios"><i class="bi bi-chat-left-text"></i>
               </button></td>
               <td><button class="btn btn-danger" title="Eliminar ticket"><i class="bi bi-trash3"></i>
               </i>
@@ -119,7 +121,7 @@ export const panel =  {
               <td><button class="btn btn-warning" title="Añadir comentario"><i class="bi  bi-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
               </button>
               </td>
-              <td><button class="btn btn-info" title="Ver comentarios"><i class="bi bi-chat-left-text"></i>
+              <td><button class="btn btn-info botonComentario" title="Ver comentarios"><i class="bi bi-chat-left-text"></i>
               </button></td>
               <td><button class="btn btn-danger" title="Eliminar ticket"><i class="bi bi-trash3"></i>
               </i>
@@ -154,7 +156,7 @@ export const panel =  {
               <td>Problema de conexión a Internet</td>
               <td>Maria López</td>
               
-              <td><button class="btn btn-info" title="Ver comentarios"><i class="bi bi-chat-left-text"></i>
+              <td><button class="btn btn-info botonComentario" title="Ver comentarios"><i class="bi bi-chat-left-text"></i>
               </button></td>
               <td><button class="btn btn-danger" title="Eliminar ticket"><i class="bi bi-trash3"></i>
               </i>
@@ -169,7 +171,7 @@ export const panel =  {
               <td>PC2</td>
               <td>Pantalla en blanco</td>
               <td>Juan Rodríguez</td>
-              <td><button class="btn btn-info" title="Ver comentarios"><i class="bi bi-chat-left-text"></i>
+              <td><button class="btn btn-info botonComentario" title="Ver comentarios"><i class="bi bi-chat-left-text"></i>
               </button></td>
               <td><button class="btn btn-danger" title="Eliminar ticket"><i class="bi bi-trash3"></i>
               </i>
@@ -184,7 +186,7 @@ export const panel =  {
               <td>PC3</td>
               <td>Error de impresora</td>
               <td>Ana Martínez</td>
-              <td><button class="btn btn-info" title="Ver comentarios"><i class="bi bi-chat-left-text"></i>
+              <td><button class="btn btn-info botonComentario" title="Ver comentarios"><i class="bi bi-chat-left-text"></i>
               </button></td>
               <td><button class="btn btn-danger" title="Eliminar ticket"><i class="bi bi-trash3"></i>
               </i>
@@ -225,5 +227,74 @@ export const panel =  {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     </body>
     </html>
-`
+`,
+
+script: ()=>{
+  const eventBody = document.querySelector('body')
+    function ticketsResueltos() {
+
+      const resueltos = tickets.filter(ticket => ticket.estado === 'resuelto');
+    
+
+      const filas = resueltos.map(ticket => `
+        <tr>
+          <td>${ticket.codigo}</td>
+          <td>${ticket.estado}</td>
+          <td>${ticket.descripcion}</td>
+          <td>${ticket.alumno}</td>
+          <!-- Otros campos del ticket según sea necesario -->
+        </tr>
+      `);
+    
+      document.getElementById('tablaResueltos').innerHTML = filas.join('');
+    
+
+      const pendientes = tickets.filter(ticket => ticket.estado === 'pendiente');
+    
+
+      const filasPendientes = pendientes.map(ticket => `
+        <tr>
+          <td>${ticket.codigo}</td>
+          <td>${ticket.estado}</td>
+          <td>${ticket.descripcion}</td>
+          <td>${ticket.alumno}</td>
+          <!-- Otros campos del ticket según sea necesario -->
+        </tr>
+      `);
+    
+
+      document.getElementById('tablaPendientes').innerHTML = filasPendientes.join('');
+    }
+    function ticketsPendientes() {
+
+      const pendientes = tickets.filter(ticket => ticket.estado === 'pendiente');
+
+      const filas = pendientes.map(ticket => `
+        <tr>
+          <td>${ticket.codigo}</td>
+        </tr>
+      `);
+  
+      document.getElementById('tablaPendientes').innerHTML = filas.join('');
+    }
+    
+    function ticketsResueltos() {
+
+      const resueltos = tickets.filter(ticket => ticket.estado === 'resuelto');
+    
+      const filas = resueltos.map(ticket => `
+        <tr>
+          <td>${ticket.codigo}</td>
+        </tr>
+      `);
+    
+      document.getElementById('tablaResueltos').innerHTML = filas.join('');
+    }
+  
+    ticketsPendientes();
+    ticketsResueltos();
+    
+ 
+
+}
 }
